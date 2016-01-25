@@ -16,4 +16,7 @@ extern "C"
 	bool getPCMSolenoidVoltageStickyFault(void* solenoid_port_pointer, int32_t *status);
 	bool getPCMSolenoidVoltageFault(void* solenoid_port_pointer, int32_t *status);
 	void clearAllPCMStickyFaults_sol(void *solenoid_port_pointer, int32_t *status);
+
+	void setOneShotDuration(void *solenoid_port_pointer, int32_t durMS, int32_t *status);
+	void fireOneShot(void *solenoid_port_pointer, int32_t *status);
 }

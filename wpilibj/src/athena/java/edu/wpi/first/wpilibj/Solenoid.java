@@ -117,6 +117,33 @@ public class Solenoid extends SolenoidBase implements LiveWindowSendable {
     return (value != 0);
   }
 
+  /**
+   * Set the pulse duration in the PCM. This is used in conjunction with
+   * the startPulse method to allow the PCM to control the timing of a pulse.
+   * The timing can be controlled in 0.01 second increments.
+   *
+   * @param durationSeconds The duration of the pulse, from 0.01 to 4.1 seconds.
+   *
+   * @see #startPulse()
+   */
+  public void setPulseDuration(double durationSeconds) {
+    byte mask = (byte) (1 << m_channel);
+    setPulseDuration(durationSeconds, mask);
+  }
+
+  /**
+   * Trigger the PCM to generate a pulse of the duration set in 
+   * setPulseDuration. 
+   *
+   * @param mast The channels you want to be affected.
+   *
+   * @see #setPulseDuration()
+   */
+  public void startPulse() {
+    byte mask = (byte) (1 << m_channel);
+    startPulse(mask);
+  }
+
   /*
    * Live Window code, only does anything if live window is activated.
    */

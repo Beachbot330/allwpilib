@@ -104,4 +104,15 @@ void clearAllPCMStickyFaults_sol(void *solenoid_port_pointer, int32_t *status){
 	*status = port->module->ClearStickyFaults();
 }
 
+void setOneShotDuration(void *solenoid_port_pointer, int32_t durMS, int32_t *status) {
+	solenoid_port_t* port = (solenoid_port_t*) solenoid_port_pointer;
+	
+	*status = port->module->SetOneShotDurationMs(port->pin, durMS);
+}
+
+void fireOneShot(void *solenoid_port_pointer, int32_t *status) {
+	solenoid_port_t* port = (solenoid_port_t*) solenoid_port_pointer;
+	
+	*status = port->module->FireOneShotSolenoid(port->pin);
+}
 }  // extern "C"

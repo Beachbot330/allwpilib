@@ -111,4 +111,39 @@ public abstract class SolenoidBase extends SensorBase {
   public void clearAllPCMStickyFaults() {
     SolenoidJNI.clearAllPCMStickyFaults(m_ports[0]);
   }
+
+  /**
+   * Set the pulse duration in the PCM. This is used in conjunction with
+   * the startPulse method to allow the PCM to control the timing of a pulse.
+   *
+   * @param durationSeconds The duration of the pulse, from 0.01 to 4.1 seconds.
+   * @param mask The channels you want to be affected.
+   *
+   * @see #startPulse()
+   */
+  protected synchronized void setPulseDuration(double durationSeconds, int mask) {
+    long durationMS = (long)(durationSeconds * 1000);
+    for (int i = 0; i < SensorBase.kSolenoidChannels; i++) {
+      int local_mask = 1 << i;
+      if ((mask & local_mask) != 0)
+        SolenoidJNI.setOneShotDuration(m_ports[i], durationMS);
+    }
+  }
+
+  /**
+   * Trigger the PCM to generate a pulse of the duration set in 
+   * setPulseDuration. 
+   *
+   * @param mast The channels you want to be affected.
+   *
+   * @see #setPulseDuration()
+   */
+  protected synchronized void startPulse(int mask) {
+    for (int i = 0; i < SensorBase.kSolenoidChannels; i++) {
+      int local_mask = 1 << i;
+      if ((mask & local_mask) != 0)
+        SolenoidJNI.fireOneShot(m_ports[i]);
+    }
+  }
+  
 }
