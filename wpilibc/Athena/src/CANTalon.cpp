@@ -134,6 +134,12 @@ float CANTalon::Get() const {
 void CANTalon::Set(float value, uint8_t syncGroup) {
   /* feed safety helper since caller just updated our output */
   m_safetyHelper->Feed();
+
+  if (m_stopped) {
+    EnableControl();
+    m_stopped = false;
+  }
+
   if (m_controlEnabled) {
     m_setPoint = value;  /* cache set point for GetSetpoint() */
     CTR_Code status = CTR_OKAY;
@@ -1206,7 +1212,43 @@ void CANTalon::DisableSoftPositionLimits() {
 }
 
 /**
- * TODO documentation (see CANJaguar.cpp)
+ * Overrides the forward and reverse limit switch enables.
+ * Unlike ConfigLimitMode, this function allows individual control of forward and
+ * reverse limit switch enables.
+ * Unlike ConfigLimitMode, this function does not affect the soft-limit features of Talon SRX.
+ * @see ConfigLimitMode()
+ */
+void CANTalon::ConfigLimitSwitchOverrides(bool bForwardLimitSwitchEn, bool bReverseLimitSwitchEn) {
+  CTR_Code status = CTR_OKAY;
+  int fwdRevEnable;
+  /* chose correct signal value based on caller's requests enables */
+  if(!bForwardLimitSwitchEn) {
+    /* caller wants Forward Limit Switch OFF */
+    if(!bReverseLimitSwitchEn) {
+      /* caller wants both OFF */
+      fwdRevEnable = CanTalonSRX::kLimitSwitchOverride_DisableFwd_DisableRev;
+    } else {
+      /* caller Forward OFF and Reverse ON */
+      fwdRevEnable = CanTalonSRX::kLimitSwitchOverride_DisableFwd_EnableRev;
+    }
+  } else {
+    /* caller wants Forward Limit Switch ON */
+    if(!bReverseLimitSwitchEn) {
+      /* caller wants Forward ON and Reverse OFF */
+      fwdRevEnable = CanTalonSRX::kLimitSwitchOverride_EnableFwd_DisableRev;
+    } else {
+      /* caller wants both ON */
+      fwdRevEnable = CanTalonSRX::kLimitSwitchOverride_EnableFwd_EnableRev;
+    }
+  }
+  /* update signal and error check code */
+  status = m_impl->SetOverrideLimitSwitchEn(fwdRevEnable);
+  if (status != CTR_OKAY) {
+    wpi_setErrorWithContext(status, getHALErrorMessage(status));
+  }
+}
+
+/**
  * Configures the soft limit enable (wear leveled persistent memory).
  * Also sets the limit switch overrides.
  */
@@ -1279,6 +1321,32 @@ void CANTalon::ConfigForwardLimit(double forwardLimitPosition) {
   CTR_Code status = CTR_OKAY;
   int32_t nativeLimitPos = ScaleRotationsToNativeUnits(m_feedbackDevice, forwardLimitPosition);
   status = m_impl->SetForwardSoftLimit(nativeLimitPos);
+  if (status != CTR_OKAY) {
+    wpi_setErrorWithContext(status, getHALErrorMessage(status));
+  }
+}
+
+/**
+ * Set the Forward Soft Limit Enable.
+ * This is the same setting that is in the Web-Based Configuration.
+ * @param bForwardSoftLimitEn true to enable Soft limit, false to disable.
+ */
+void CANTalon::ConfigForwardSoftLimitEnable(bool bForwardSoftLimitEn) {
+  CTR_Code status = CTR_OKAY;
+  status = m_impl->SetForwardSoftEnable(bForwardSoftLimitEn);
+  if (status != CTR_OKAY) {
+    wpi_setErrorWithContext(status, getHALErrorMessage(status));
+  }
+}
+
+/**
+ * Set the Reverse Soft Limit Enable.
+ * This is the same setting that is in the Web-Based Configuration.
+ * @param bReverseSoftLimitEn true to enable Soft limit, false to disable.
+ */
+void CANTalon::ConfigReverseSoftLimitEnable(bool bReverseSoftLimitEn) {
+  CTR_Code status = CTR_OKAY;
+  status = m_impl->SetReverseSoftEnable(bReverseSoftLimitEn);
   if (status != CTR_OKAY) {
     wpi_setErrorWithContext(status, getHALErrorMessage(status));
   }
@@ -1825,12 +1893,15 @@ void CANTalon::SetInverted(bool isInverted) { m_isInverted = isInverted; }
 bool CANTalon::GetInverted() const { return m_isInverted; }
 
 /**
- * Common interface for stopping the motor
+ * Common interface for stopping the motor until the next Set() call
  * Part of the MotorSafety interface
  *
  * @deprecated Call Disable instead.
 */
-void CANTalon::StopMotor() { Disable(); }
+void CANTalon::StopMotor() {
+	Disable();
+	m_stopped = true;
+}
 
 void CANTalon::ValueChanged(ITable* source, llvm::StringRef key,
                             std::shared_ptr<nt::Value> value, bool isNew) {

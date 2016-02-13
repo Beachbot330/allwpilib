@@ -286,6 +286,9 @@ class CANTalon : public MotorSafety,
   virtual void ConfigLimitMode(LimitMode mode) override;
   virtual void ConfigForwardLimit(double forwardLimitPosition) override;
   virtual void ConfigReverseLimit(double reverseLimitPosition) override;
+  void ConfigLimitSwitchOverrides(bool bForwardLimitSwitchEn, bool bReverseLimitSwitchEn);
+  void ConfigForwardSoftLimitEnable(bool bForwardSoftLimitEn);
+  void ConfigReverseSoftLimitEnable(bool bReverseSoftLimitEn);
   /**
    * Change the fwd limit switch setting to normally open or closed.
    * Talon will disable momentarilly if the Talon's current setting
@@ -437,6 +440,7 @@ class CANTalon : public MotorSafety,
                   // actually test this.
 
   bool m_controlEnabled = true;
+  bool m_stopped = false;
   ControlMode m_controlMode = kPercentVbus;
   TalonControlMode m_sendMode;
 
