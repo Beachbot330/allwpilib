@@ -207,6 +207,8 @@ public abstract class RobotBase {
           + t.toString() + " at " + Arrays.toString(t.getStackTrace()), false);
       System.err.println("WARNING: Robots don't quit!");
       System.err.println("ERROR: Could not instantiate robot " + robotName + "!");
+      // Observes program starting so errors print to DS
+      FRCNetworkCommunicationsLibrary.FRCNetworkCommunicationObserveUserProgramStarting();
       System.exit(1);
       return;
     }
@@ -256,6 +258,8 @@ public abstract class RobotBase {
         System.err.println("---> Unexpected return from startCompetition() method.");
       }
     }
+    // Observes program starting so errors print to DS
+    FRCNetworkCommunicationsLibrary.FRCNetworkCommunicationObserveUserProgramStarting();
     System.exit(1);
   }
 }
