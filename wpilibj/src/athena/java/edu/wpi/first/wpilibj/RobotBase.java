@@ -225,7 +225,7 @@ public abstract class RobotBase {
 
 
       output.write("2016 Java Release 4".getBytes());
-      output.write(".1BB".getBytes());
+      output.write(".2BB".getBytes());
 
     } catch (IOException ex) {
       ex.printStackTrace();
