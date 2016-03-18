@@ -497,6 +497,8 @@ public class PIDController implements PIDInterface, LiveWindowSendable, Controll
    * @param setpoint the desired setpoint
    */
   public synchronized void setSetpoint(double setpoint) {
+	if(setpoint == m_setpoint)
+		return;//don't change anything if setpoint is equal to current setpoint
     if (m_maximumInput > m_minimumInput) {
       if (setpoint > m_maximumInput) {
         m_setpoint = m_maximumInput;
@@ -510,6 +512,7 @@ public class PIDController implements PIDInterface, LiveWindowSendable, Controll
     }
 
     m_buf.clear();
+    m_bufTotal = 0;
 
     if (table != null)
       table.putNumber("setpoint", m_setpoint);

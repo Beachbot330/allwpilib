@@ -338,7 +338,8 @@ void PIDController::SetOutputRange(float minimumOutput, float maximumOutput) {
 void PIDController::SetSetpoint(float setpoint) {
   {
     std::lock_guard<priority_recursive_mutex> sync(m_mutex);
-
+    if (setpoint == m_setpoint)
+    	return;//don't continue if the current setpoint is equal to the new setpoint
     if (m_maximumInput > m_minimumInput) {
       if (setpoint > m_maximumInput)
         m_setpoint = m_maximumInput;
@@ -352,6 +353,7 @@ void PIDController::SetSetpoint(float setpoint) {
 
     // Clear m_buf.
     m_buf = std::queue<double>();
+    m_bufTotal = 0;
   }
 
   if (m_table != nullptr) {
