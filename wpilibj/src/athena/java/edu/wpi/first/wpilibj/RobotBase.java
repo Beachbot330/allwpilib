@@ -226,7 +226,7 @@ public abstract class RobotBase {
       output = new FileOutputStream(file);
 
       output.write("2016 Java Release 5".getBytes());
-      output.write(".2BB".getBytes());
+      output.write(".3BB".getBytes());
 
     } catch (IOException ex) {
       ex.printStackTrace();

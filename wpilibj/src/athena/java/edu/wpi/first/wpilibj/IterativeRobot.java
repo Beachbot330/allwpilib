@@ -42,10 +42,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  *
  */
 public class IterativeRobot extends RobotBase {
-  private boolean m_disabledInitialized;
-  private boolean m_autonomousInitialized;
-  private boolean m_teleopInitialized;
-  private boolean m_testInitialized;
+  protected boolean m_disabledInitialized;
+  protected boolean m_autonomousInitialized;
+  protected boolean m_teleopInitialized;
+  protected boolean m_testInitialized;
 
   /**
    * Constructor for RobotIterativeBase
@@ -152,7 +152,7 @@ public class IterativeRobot extends RobotBase {
    * the periodic functions whenever a packet is received from the Driver
    * Station, or about every 20ms.
    */
-  private boolean nextPeriodReady() {
+  protected boolean nextPeriodReady() {
     return m_ds.isNewControlData();
   }
 
@@ -277,5 +277,6 @@ public class IterativeRobot extends RobotBase {
       System.out.println("Default IterativeRobot.testPeriodic() method... Overload me!");
       tmpFirstRun = false;
     }
+    Timer.delay(0.001);
   }
 }
