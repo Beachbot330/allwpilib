@@ -112,6 +112,8 @@ class Command : public ErrorBase, public NamedSendable, public ITableListener {
   virtual void _End();
   virtual void _Cancel();
 
+  friend class ConditionalCommand;
+
  private:
   void LockChanges();
   /*synchronized*/ void Removed();
