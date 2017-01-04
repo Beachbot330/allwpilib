@@ -103,6 +103,7 @@ public abstract class ConditionalCommand extends Command {
     } else {
       m_chosenCommand = m_onFalse;
     }
+    m_chosenCommand.m_requirements = new Set();
     m_chosenCommand.start();
   }
 

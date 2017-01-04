@@ -62,7 +62,7 @@ public abstract class Command implements NamedSendable {
   /**
    * The requirements (or null if no requirements).
    */
-  private Set m_requirements;
+  protected Set m_requirements;
   /**
    * Whether or not it is running.
    */
