@@ -53,6 +53,17 @@ class ConditionalCommandTest : public testing::Test {
     EXPECT_EQ(end, command.GetEndCount());
     EXPECT_EQ(interrupted, command.GetInterruptedCount());
   }
+
+  void AssertConditionalCommandState(MockConditionalCommand& command,
+                                     int32_t initialize, int32_t execute,
+                                     int32_t isFinished, int32_t end,
+                                     int32_t interrupted) {
+    EXPECT_EQ(initialize, command.GetInitializeCount());
+    EXPECT_EQ(execute, command.GetExecuteCount());
+    EXPECT_EQ(isFinished, command.GetIsFinishedCount());
+    EXPECT_EQ(end, command.GetEndCount());
+    EXPECT_EQ(interrupted, command.GetInterruptedCount());
+  }
 };
 
 TEST_F(ConditionalCommandTest, OnTrueTest) {
@@ -60,14 +71,29 @@ TEST_F(ConditionalCommandTest, OnTrueTest) {
 
   Scheduler::GetInstance()->AddCommand(m_command);
   AssertCommandState(*m_onTrue, 0, 0, 0, 0, 0);
+  AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
+  AssertConditionalCommandState(*m_command, 0, 0, 0, 0, 0);
   Scheduler::GetInstance()->Run();  // init command and select m_onTrue
   AssertCommandState(*m_onTrue, 0, 0, 0, 0, 0);
+  AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
+  AssertConditionalCommandState(*m_command, 1, 1, 1, 0, 0);
   Scheduler::GetInstance()->Run();  // init m_onTrue
   AssertCommandState(*m_onTrue, 0, 0, 0, 0, 0);
+  AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
+  AssertConditionalCommandState(*m_command, 2, 2, 2, 0, 0);
   Scheduler::GetInstance()->Run();
   AssertCommandState(*m_onTrue, 1, 1, 2, 0, 0);
+  AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
+  AssertConditionalCommandState(*m_command, 3, 3, 3, 0, 0);
   Scheduler::GetInstance()->Run();
   AssertCommandState(*m_onTrue, 1, 2, 4, 0, 0);
+  AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
+  AssertConditionalCommandState(*m_command, 4, 4, 4, 0, 0);
+  m_onTrue->SetHasFinished(true);
+  Scheduler::GetInstance()->Run();
+  AssertCommandState(*m_onTrue, 1, 3, 6, 1, 0);
+  AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
+  AssertConditionalCommandState(*m_command, 5, 5, 5, 1, 0);
 
   EXPECT_TRUE(m_onTrue->GetInitializeCount() > 0)
       << "Did not initialize the true command\n";
@@ -82,9 +108,9 @@ TEST_F(ConditionalCommandTest, OnFalseTest) {
 
   Scheduler::GetInstance()->AddCommand(m_command);
   AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
-  Scheduler::GetInstance()->Run();  // init command and select m_onTrue
+  Scheduler::GetInstance()->Run();  // init command and select m_onFalse
   AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
-  Scheduler::GetInstance()->Run();  // init m_onTrue
+  Scheduler::GetInstance()->Run();  // init m_onFalse
   AssertCommandState(*m_onFalse, 0, 0, 0, 0, 0);
   Scheduler::GetInstance()->Run();
   AssertCommandState(*m_onFalse, 1, 1, 2, 0, 0);
