@@ -171,3 +171,13 @@ jobs:
         with:
           name: Maven
           path: ~/releases
+  check-spelling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: misspell
+        uses: reviewdog/action-misspell@v1
+        with:
+          locale: "US"
+          reporter: "github-check"
+          exclude: "wpimath/src/main/native/eigeninclude"
