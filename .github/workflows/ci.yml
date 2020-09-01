@@ -180,4 +180,4 @@ jobs:
         with:
           locale: "US"
           reporter: "github-check"
-          exclude: "./wpimath/src/main/native/eigeninclude/*"
+          exclude: "./wpimath/src/main/native/eigeninclude/*,./wpiutil/src/main/native/libuv/*"
