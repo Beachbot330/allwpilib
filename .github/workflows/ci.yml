@@ -175,9 +175,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: clean-up
+        run: |
+          rm -rf wpiutil/src/main/native/libuv/ wpimath/src/main/native/include/unsupported/Eigen wpimath/src/main/native/include/units/ wpimath/src/main/native/eigeninclude/ wpiutil/src/main/native/include/wpi/uv/ simulation/frc_gazebo_plugins/frc_gazebo_plugins.doxy
       - name: misspell
         uses: reviewdog/action-misspell@v1
         with:
           locale: "US"
           reporter: "github-check"
-          exclude: "./wpimath/src/main/native/eigeninclude/* ./wpiutil/src/main/native/libuv/*"
