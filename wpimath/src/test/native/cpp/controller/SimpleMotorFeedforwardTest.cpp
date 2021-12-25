@@ -43,4 +43,15 @@ TEST(SimpleMotorFeedforwardTest, Calculate) {
               simpleMotor.Calculate(2_mps, 1_mps / dt).value(), 2.0);
 }
 
+TEST(SimpleMotorFeedforwardTest, MaxAchievableAcceleration) {
+  constexpr auto ks = 0.22_V;
+  constexpr auto kv = 1.98 * 1_V / 1_mps;
+  constexpr auto ka = 0.2 * 1_V / 1_mps_sq;
+
+  frc::SimpleMotorFeedforward<units::meter> simpleMotor{ks, kv, ka};
+
+  EXPECT_NEAR(50.0,
+              simpleMotor.MaxAchievableAcceleration(10_V, 0_mps).value(), 0.002);
+}
+
 }  // namespace frc
