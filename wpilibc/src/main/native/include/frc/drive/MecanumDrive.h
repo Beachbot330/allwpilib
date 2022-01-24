@@ -47,8 +47,8 @@ class SpeedController;
  * Mecanum drive robot.
  *
  * The positive Y axis points ahead, the positive X axis points to the right,
- * and the positive Z axis points down. Rotations follow the right-hand rule, so
- * clockwise rotation around the Z axis is positive.
+ * and the positive Z axis points down. clockwise rotation around the Z axis is
+ * positive.
  *
  * Note: the axis conventions used in this class differ from DifferentialDrive.
  * This may change in a future year's WPILib release.

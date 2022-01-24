@@ -37,8 +37,7 @@ import edu.wpi.first.wpilibj.SpeedController;
  * robot.
  *
  * <p>The positive Y axis points ahead, the positive X axis points right, and the positive Z axis
- * points down. Rotations follow the right-hand rule, so clockwise rotation around the Z axis is
- * positive.
+ * points down. Clockwise rotation around the Z axis is positive.
  *
  * <p>Note: the axis conventions used in this class differ from DifferentialDrive. This may change
  * in a future year's WPILib release.
