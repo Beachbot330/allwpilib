@@ -73,12 +73,12 @@ TEST(ExtendedKalmanFilterTest, Init) {
   frc::Vectord<2> u{12.0, 12.0};
   observer.Predict(u, dt);
 
-  auto localY = LocalMeasurementModel(observer.Xhat(), u);
-  observer.Correct(u, localY);
+  auto locally = LocalMeasurementModel(observer.Xhat(), u);
+  observer.Correct(u, locally);
 
-  auto globalY = GlobalMeasurementModel(observer.Xhat(), u);
+  auto globally = GlobalMeasurementModel(observer.Xhat(), u);
   auto R = frc::MakeCovMatrix(0.01, 0.01, 0.0001, 0.01, 0.01);
-  observer.Correct<5>(u, globalY, GlobalMeasurementModel, R);
+  observer.Correct<5>(u, globally, GlobalMeasurementModel, R);
 }
 
 TEST(ExtendedKalmanFilterTest, Convergence) {
@@ -120,8 +120,8 @@ TEST(ExtendedKalmanFilterTest, Convergence) {
         ref.pose.Translation().X().value(), ref.pose.Translation().Y().value(),
         ref.pose.Rotation().Radians().value(), vl.value(), vr.value()};
 
-    auto localY = LocalMeasurementModel(nextR, frc::Vectord<2>::Zero());
-    observer.Correct(u, localY + frc::MakeWhiteNoiseVector(0.0001, 0.5, 0.5));
+    auto locally = LocalMeasurementModel(nextR, frc::Vectord<2>::Zero());
+    observer.Correct(u, locally + frc::MakeWhiteNoiseVector(0.0001, 0.5, 0.5));
 
     frc::Vectord<5> rdot = (nextR - r) / dt.value();
     u = B.householderQr().solve(rdot - Dynamics(r, frc::Vectord<2>::Zero()));
@@ -131,12 +131,12 @@ TEST(ExtendedKalmanFilterTest, Convergence) {
     r = nextR;
   }
 
-  auto localY = LocalMeasurementModel(observer.Xhat(), u);
-  observer.Correct(u, localY);
+  auto locally = LocalMeasurementModel(observer.Xhat(), u);
+  observer.Correct(u, locally);
 
-  auto globalY = GlobalMeasurementModel(observer.Xhat(), u);
+  auto globally = GlobalMeasurementModel(observer.Xhat(), u);
   auto R = frc::MakeCovMatrix(0.01, 0.01, 0.0001, 0.5, 0.5);
-  observer.Correct<5>(u, globalY, GlobalMeasurementModel, R);
+  observer.Correct<5>(u, globally, GlobalMeasurementModel, R);
 
   auto finalPosition = trajectory.Sample(trajectory.TotalTime());
   ASSERT_NEAR(finalPosition.pose.Translation().X().value(), observer.Xhat(0),

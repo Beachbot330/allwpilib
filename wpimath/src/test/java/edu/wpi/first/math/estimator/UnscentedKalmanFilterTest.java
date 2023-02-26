@@ -95,17 +95,17 @@ class UnscentedKalmanFilterTest {
           var u = VecBuilder.fill(12.0, 12.0);
           observer.predict(u, dtSeconds);
 
-          var localY = getLocalMeasurementModel(observer.getXhat(), u);
-          observer.correct(u, localY);
+          var locally = getLocalMeasurementModel(observer.getXhat(), u);
+          observer.correct(u, locally);
 
-          var globalY = getGlobalMeasurementModel(observer.getXhat(), u);
+          var globally = getGlobalMeasurementModel(observer.getXhat(), u);
           var R =
               StateSpaceUtil.makeCovarianceMatrix(
                   Nat.N5(), VecBuilder.fill(0.01, 0.01, 0.0001, 0.01, 0.01));
           observer.correct(
               Nat.N5(),
               u,
-              globalY,
+              globally,
               UnscentedKalmanFilterTest::getGlobalMeasurementModel,
               R,
               AngleStatistics.angleMean(2),
@@ -177,10 +177,10 @@ class UnscentedKalmanFilterTest {
               vl,
               vr);
 
-      Matrix<N3, N1> localY = getLocalMeasurementModel(trueXhat, new Matrix<>(Nat.N2(), Nat.N1()));
+      Matrix<N3, N1> locally = getLocalMeasurementModel(trueXhat, new Matrix<>(Nat.N2(), Nat.N1()));
       var noiseStdDev = VecBuilder.fill(0.0001, 0.5, 0.5);
 
-      observer.correct(u, localY.plus(StateSpaceUtil.makeWhiteNoiseVector(noiseStdDev)));
+      observer.correct(u, locally.plus(StateSpaceUtil.makeWhiteNoiseVector(noiseStdDev)));
 
       var rdot = nextR.minus(r).div(dtSeconds);
       u = new Matrix<>(B.solve(rdot.minus(getDynamics(r, new Matrix<>(Nat.N2(), Nat.N1())))));
@@ -192,17 +192,17 @@ class UnscentedKalmanFilterTest {
           NumericalIntegration.rk4(UnscentedKalmanFilterTest::getDynamics, trueXhat, u, dtSeconds);
     }
 
-    var localY = getLocalMeasurementModel(trueXhat, u);
-    observer.correct(u, localY);
+    var locally = getLocalMeasurementModel(trueXhat, u);
+    observer.correct(u, locally);
 
-    var globalY = getGlobalMeasurementModel(trueXhat, u);
+    var globally = getGlobalMeasurementModel(trueXhat, u);
     var R =
         StateSpaceUtil.makeCovarianceMatrix(
             Nat.N5(), VecBuilder.fill(0.01, 0.01, 0.0001, 0.5, 0.5));
     observer.correct(
         Nat.N5(),
         u,
-        globalY,
+        globally,
         UnscentedKalmanFilterTest::getGlobalMeasurementModel,
         R,
         AngleStatistics.angleMean(2),

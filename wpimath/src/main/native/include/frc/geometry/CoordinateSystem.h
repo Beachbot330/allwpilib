@@ -46,11 +46,11 @@ class WPILIB_DLLEXPORT CoordinateSystem {
   static const CoordinateSystem& NWU();
 
   /**
-   * Returns an instance of the East-Down-North (EDN) coordinate system.
+   * Returns an instance of the East-Down-North (END) coordinate system.
    *
    * The +X axis is east, the +Y axis is down, and the +Z axis is north.
    */
-  static const CoordinateSystem& EDN();
+  static const CoordinateSystem& END();
 
   /**
    * Returns an instance of the NED coordinate system.

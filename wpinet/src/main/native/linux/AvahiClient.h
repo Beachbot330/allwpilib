@@ -131,7 +131,7 @@ typedef struct AvahiThreadedPoll AvahiThreadedPoll;
 typedef struct AvahiEntryGroup AvahiEntryGroup;
 
 typedef enum {
-  AVAHI_ENTRY_GROUP_UNCOMMITED,
+  AVAHI_ENTRY_GROUP_UNCOMMITTED,
   AVAHI_ENTRY_GROUP_REGISTERING,
   AVAHI_ENTRY_GROUP_ESTABLISHED,
   AVAHI_ENTRY_GROUP_COLLISION,

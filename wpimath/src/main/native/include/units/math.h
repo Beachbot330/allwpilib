@@ -546,20 +546,20 @@ UnitType floor(const UnitType x) noexcept {
 /**
  * @ingroup UnitMath
  * @brief Compute remainder of division
- * @details Returns the floating-point remainder of numer/denom (rounded towards
+ * @details Returns the floating-point remainder of number/denom (rounded towards
  *          zero).
- * @param[in] numer Value of the quotient numerator.
+ * @param[in] number Value of the quotient numerator.
  * @param[in] denom Value of the quotient denominator.
  * @returns The remainder of dividing the arguments.
  */
 template <class UnitTypeLhs, class UnitTypeRhs,
           class = std::enable_if_t<traits::is_unit_t<UnitTypeLhs>::value &&
                                    traits::is_unit_t<UnitTypeRhs>::value>>
-UnitTypeLhs fmod(const UnitTypeLhs numer, const UnitTypeRhs denom) noexcept {
+UnitTypeLhs fmod(const UnitTypeLhs number, const UnitTypeRhs denom) noexcept {
   static_assert(traits::is_convertible_unit_t<UnitTypeLhs, UnitTypeRhs>::value,
                 "Parameters of fmod() function are not compatible units.");
   return UnitTypeLhs(std::fmod(
-      numer(),
+      number(),
       denom.template convert<
           typename units::traits::unit_t_traits<UnitTypeLhs>::unit_type>()()));
 }

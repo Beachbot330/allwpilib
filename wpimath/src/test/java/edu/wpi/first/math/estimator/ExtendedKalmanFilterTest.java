@@ -87,13 +87,13 @@ class ExtendedKalmanFilterTest {
           Matrix<N2, N1> u = VecBuilder.fill(12.0, 12.0);
           observer.predict(u, dtSeconds);
 
-          var localY = getLocalMeasurementModel(observer.getXhat(), u);
-          observer.correct(u, localY);
+          var locally = getLocalMeasurementModel(observer.getXhat(), u);
+          observer.correct(u, locally);
 
-          var globalY = getGlobalMeasurementModel(observer.getXhat(), u);
+          var globally = getGlobalMeasurementModel(observer.getXhat(), u);
           var R = StateSpaceUtil.makeCostMatrix(VecBuilder.fill(0.01, 0.01, 0.0001, 0.5, 0.5));
           observer.correct(
-              Nat.N5(), u, globalY, ExtendedKalmanFilterTest::getGlobalMeasurementModel, R);
+              Nat.N5(), u, globally, ExtendedKalmanFilterTest::getGlobalMeasurementModel, R);
         });
   }
 
@@ -155,9 +155,9 @@ class ExtendedKalmanFilterTest {
       nextR.set(3, 0, vl);
       nextR.set(4, 0, vr);
 
-      var localY = getLocalMeasurementModel(groundTruthX, u);
+      var locally = getLocalMeasurementModel(groundTruthX, u);
       var whiteNoiseStdDevs = VecBuilder.fill(0.0001, 0.5, 0.5);
-      observer.correct(u, localY.plus(StateSpaceUtil.makeWhiteNoiseVector(whiteNoiseStdDevs)));
+      observer.correct(u, locally.plus(StateSpaceUtil.makeWhiteNoiseVector(whiteNoiseStdDevs)));
 
       Matrix<N5, N1> rdot = nextR.minus(r).div(dtSeconds);
       u = new Matrix<>(B.solve(rdot.minus(getDynamics(r, new Matrix<>(Nat.N2(), Nat.N1())))));
@@ -171,12 +171,12 @@ class ExtendedKalmanFilterTest {
       r = nextR;
     }
 
-    var localY = getLocalMeasurementModel(observer.getXhat(), u);
-    observer.correct(u, localY);
+    var locally = getLocalMeasurementModel(observer.getXhat(), u);
+    observer.correct(u, locally);
 
-    var globalY = getGlobalMeasurementModel(observer.getXhat(), u);
+    var globally = getGlobalMeasurementModel(observer.getXhat(), u);
     var R = StateSpaceUtil.makeCostMatrix(VecBuilder.fill(0.01, 0.01, 0.0001, 0.5, 0.5));
-    observer.correct(Nat.N5(), u, globalY, ExtendedKalmanFilterTest::getGlobalMeasurementModel, R);
+    observer.correct(Nat.N5(), u, globally, ExtendedKalmanFilterTest::getGlobalMeasurementModel, R);
 
     var finalPosition = trajectory.sample(trajectory.getTotalTimeSeconds());
     assertEquals(finalPosition.poseMeters.getTranslation().getX(), observer.getXhat(0), 1.0);

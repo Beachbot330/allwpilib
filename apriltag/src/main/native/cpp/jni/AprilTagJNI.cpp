@@ -172,7 +172,7 @@ static AprilTagDetector::QuadThresholdParameters FromJavaDetectorQTP(
 
 static jobject MakeJObject(JNIEnv* env, const AprilTagDetection& detect) {
   static jmethodID constructor = env->GetMethodID(
-      detectionCls, "<init>", "(Ljava/lang/String;IIF[DDD[D)V");
+      detectionCls, "<init>", "(Ljava/lang/String;IF[DDD[D)V");
   if (!constructor) {
     return nullptr;
   }

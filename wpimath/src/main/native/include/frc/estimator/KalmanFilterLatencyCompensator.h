@@ -26,11 +26,11 @@ class KalmanFilterLatencyCompensator {
     Vectord<Outputs> localMeasurements;
 
     ObserverSnapshot(const KalmanFilterType& observer, const Vectord<Inputs>& u,
-                     const Vectord<Outputs>& localY)
+                     const Vectord<Outputs>& locally)
         : xHat(observer.Xhat()),
           squareRootErrorCovariances(observer.S()),
           inputs(u),
-          localMeasurements(localY) {}
+          localMeasurements(locally) {}
   };
 
   /**
@@ -43,14 +43,14 @@ class KalmanFilterLatencyCompensator {
    *
    * @param observer  The observer.
    * @param u         The input at the timestamp.
-   * @param localY    The local output at the timestamp
+   * @param locally    The local output at the timestamp
    * @param timestamp The timesnap of the state.
    */
   void AddObserverState(const KalmanFilterType& observer, Vectord<Inputs> u,
-                        Vectord<Outputs> localY, units::second_t timestamp) {
+                        Vectord<Outputs> locally, units::second_t timestamp) {
     // Add the new state into the vector.
     m_pastObserverSnapshots.emplace_back(timestamp,
-                                         ObserverSnapshot{observer, u, localY});
+                                         ObserverSnapshot{observer, u, locally});
 
     // Remove the oldest snapshot if the vector exceeds our maximum size.
     if (m_pastObserverSnapshots.size() > kMaxPastObserverStates) {

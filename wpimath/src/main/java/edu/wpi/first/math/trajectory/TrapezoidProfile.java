@@ -207,7 +207,7 @@ public class TrapezoidProfile {
     endFullSpeed = Math.max(endFullSpeed, 0);
 
     final double acceleration = m_constraints.maxAcceleration;
-    final double decceleration = -m_constraints.maxAcceleration;
+    final double deceleration = -m_constraints.maxAcceleration;
 
     double distToTarget = Math.abs(target - position);
     if (distToTarget < 1e-6) {
@@ -244,8 +244,8 @@ public class TrapezoidProfile {
     double deccelTime =
         (-deccelVelocity
                 + Math.sqrt(
-                    Math.abs(deccelVelocity * deccelVelocity + 2 * decceleration * deccelDist)))
-            / decceleration;
+                    Math.abs(deccelVelocity * deccelVelocity + 2 * deceleration * deccelDist)))
+            / deceleration;
 
     double fullSpeedTime = fullSpeedDist / m_constraints.maxVelocity;
 

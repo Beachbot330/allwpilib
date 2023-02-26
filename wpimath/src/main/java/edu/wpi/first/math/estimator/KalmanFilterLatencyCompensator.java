@@ -32,16 +32,16 @@ public class KalmanFilterLatencyCompensator<S extends Num, I extends Num, O exte
    *
    * @param observer The observer.
    * @param u The input at the timestamp.
-   * @param localY The local output at the timestamp
+   * @param locally The local output at the timestamp
    * @param timestampSeconds The timestamp of the state.
    */
   public void addObserverState(
       KalmanTypeFilter<S, I, O> observer,
       Matrix<I, N1> u,
-      Matrix<O, N1> localY,
+      Matrix<O, N1> locally,
       double timestampSeconds) {
     m_pastObserverSnapshots.add(
-        Map.entry(timestampSeconds, new ObserverSnapshot(observer, u, localY)));
+        Map.entry(timestampSeconds, new ObserverSnapshot(observer, u, locally)));
 
     if (m_pastObserverSnapshots.size() > kMaxPastObserverStates) {
       m_pastObserverSnapshots.remove(0);
@@ -170,12 +170,12 @@ public class KalmanFilterLatencyCompensator<S extends Num, I extends Num, O exte
     public final Matrix<O, N1> localMeasurements;
 
     private ObserverSnapshot(
-        KalmanTypeFilter<S, I, O> observer, Matrix<I, N1> u, Matrix<O, N1> localY) {
+        KalmanTypeFilter<S, I, O> observer, Matrix<I, N1> u, Matrix<O, N1> locally) {
       this.xHat = observer.getXhat();
       this.errorCovariances = observer.getP();
 
       inputs = u;
-      localMeasurements = localY;
+      localMeasurements = locally;
     }
   }
 }

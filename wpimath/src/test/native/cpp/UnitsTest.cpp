@@ -1126,7 +1126,7 @@ TEST_F(UnitContainer, unitTypeMixedUnitMultiplication) {
   square_meter_t d_m2 = b_ft * a_m;
   EXPECT_NEAR(1.0, d_m2(), 5.0e-5);
 
-  // a unit times a sclar ends up with the same units.
+  // a unit times a scalar ends up with the same units.
   meter_t e_m = a_m * scalar_t(3.0);
   EXPECT_NEAR(3.0, e_m(), 5.0e-5);
 
@@ -1725,7 +1725,7 @@ TEST_F(UnitConversion, length) {
   EXPECT_NEAR(1.0, test, 5.0e-20);
   test = convert<meters, astronicalUnits>(149597870700.0);
   EXPECT_NEAR(1.0, test, 5.0e-20);
-  test = convert<meters, lightyears>(9460730472580800.0);
+  test = convert<meters, light years>(9460730472580800.0);
   EXPECT_NEAR(1.0, test, 5.0e-20);
   test = convert<meters, parsec>(3.08567758e16);
   EXPECT_NEAR(1.0, test, 5.0e7);

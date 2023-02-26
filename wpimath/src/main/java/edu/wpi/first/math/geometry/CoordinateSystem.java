@@ -54,13 +54,13 @@ public class CoordinateSystem {
   }
 
   /**
-   * Returns an instance of the East-Down-North (EDN) coordinate system.
+   * Returns an instance of the East-Down-North (END) coordinate system.
    *
    * <p>The +X axis is east, the +Y axis is down, and the +Z axis is north.
    *
-   * @return An instance of the East-Down-North (EDN) coordinate system.
+   * @return An instance of the East-Down-North (END) coordinate system.
    */
-  public static CoordinateSystem EDN() {
+  public static CoordinateSystem END() {
     return m_edn;
   }
 

@@ -80,12 +80,12 @@ TEST(UnscentedKalmanFilterTest, Init) {
   frc::Vectord<2> u{12.0, 12.0};
   observer.Predict(u, dt);
 
-  auto localY = LocalMeasurementModel(observer.Xhat(), u);
-  observer.Correct(u, localY);
+  auto locally = LocalMeasurementModel(observer.Xhat(), u);
+  observer.Correct(u, locally);
 
-  auto globalY = GlobalMeasurementModel(observer.Xhat(), u);
+  auto globally = GlobalMeasurementModel(observer.Xhat(), u);
   auto R = frc::MakeCovMatrix(0.01, 0.01, 0.0001, 0.01, 0.01);
-  observer.Correct<5>(u, globalY, GlobalMeasurementModel, R,
+  observer.Correct<5>(u, globally, GlobalMeasurementModel, R,
                       frc::AngleMean<5, 5>(2), frc::AngleResidual<5>(2),
                       frc::AngleResidual<5>(2), frc::AngleAdd<5>(2));
 }
@@ -136,8 +136,8 @@ TEST(UnscentedKalmanFilterTest, Convergence) {
         ref.pose.Translation().X().value(), ref.pose.Translation().Y().value(),
         ref.pose.Rotation().Radians().value(), vl.value(), vr.value()};
 
-    auto localY = LocalMeasurementModel(trueXhat, frc::Vectord<2>::Zero());
-    observer.Correct(u, localY + frc::MakeWhiteNoiseVector(0.0001, 0.5, 0.5));
+    auto locally = LocalMeasurementModel(trueXhat, frc::Vectord<2>::Zero());
+    observer.Correct(u, locally + frc::MakeWhiteNoiseVector(0.0001, 0.5, 0.5));
 
     frc::Vectord<5> rdot = (nextR - r) / dt.value();
     u = B.householderQr().solve(rdot - Dynamics(r, frc::Vectord<2>::Zero()));
@@ -148,12 +148,12 @@ TEST(UnscentedKalmanFilterTest, Convergence) {
     trueXhat = frc::RK4(Dynamics, trueXhat, u, dt);
   }
 
-  auto localY = LocalMeasurementModel(trueXhat, u);
-  observer.Correct(u, localY);
+  auto locally = LocalMeasurementModel(trueXhat, u);
+  observer.Correct(u, locally);
 
-  auto globalY = GlobalMeasurementModel(trueXhat, u);
+  auto globally = GlobalMeasurementModel(trueXhat, u);
   auto R = frc::MakeCovMatrix(0.01, 0.01, 0.0001, 0.5, 0.5);
-  observer.Correct<5>(u, globalY, GlobalMeasurementModel, R,
+  observer.Correct<5>(u, globally, GlobalMeasurementModel, R,
                       frc::AngleMean<5, 5>(2), frc::AngleResidual<5>(2),
                       frc::AngleResidual<5>(2), frc::AngleAdd<5>(2)
 

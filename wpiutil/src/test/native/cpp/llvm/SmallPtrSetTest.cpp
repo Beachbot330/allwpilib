@@ -95,7 +95,7 @@ TEST(SmallPtrSetTest, GrowthTest) {
 
   s.clear();
   for(i=0; i<8; ++i) buf[i]=0;
-  for(i=0; i<128; ++i) s.insert(&buf[i%8]); // test repeated entires
+  for(i=0; i<128; ++i) s.insert(&buf[i%8]); // test repeated entries
   EXPECT_EQ(8U, s.size());
   for(iter I=s.begin(), E=s.end(); I!=E; ++I, ++i)
       (**I)++;

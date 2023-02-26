@@ -106,7 +106,7 @@ units::second_t TrapezoidProfile<Distance>::TimeLeftUntil(
   endFullSpeed = units::math::max(endFullSpeed, 0_s);
 
   const Acceleration_t acceleration = m_constraints.maxAcceleration;
-  const Acceleration_t decceleration = -m_constraints.maxAcceleration;
+  const Acceleration_t deceleration = -m_constraints.maxAcceleration;
 
   Distance_t distToTarget = units::math::abs(target - position);
 
@@ -147,8 +147,8 @@ units::second_t TrapezoidProfile<Distance>::TimeLeftUntil(
   units::second_t deccelTime =
       (-deccelVelocity +
        units::math::sqrt(units::math::abs(deccelVelocity * deccelVelocity +
-                                          2 * decceleration * deccelDist))) /
-      decceleration;
+                                          2 * deceleration * deccelDist))) /
+      deceleration;
 
   units::second_t fullSpeedTime = fullSpeedDist / m_constraints.maxVelocity;
 

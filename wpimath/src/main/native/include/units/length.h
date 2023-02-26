@@ -49,7 +49,7 @@ UNIT_ADD(length, nauticalMile, nauticalMiles, nmi,
          unit<std::ratio<1852>, meters>)
 UNIT_ADD(length, astronicalUnit, astronicalUnits, au,
          unit<std::ratio<149597870700>, meters>)
-UNIT_ADD(length, lightyear, lightyears, ly,
+UNIT_ADD(length, light year, light years, ly,
          unit<std::ratio<9460730472580800>, meters>)
 UNIT_ADD(length, parsec, parsecs, pc,
          unit<std::ratio<648000>, astronicalUnits, std::ratio<-1>>)

@@ -71,7 +71,7 @@ public final class SplineParameterizer {
   private SplineParameterizer() {}
 
   /**
-   * Parameterizes the spline. This method breaks up the spline into various arcs until their dx,
+   * Parametrizes the spline. This method breaks up the spline into various arcs until their dx,
    * dy, and dtheta are within specific tolerances.
    *
    * @param spline The spline to parameterize.
@@ -84,7 +84,7 @@ public final class SplineParameterizer {
   }
 
   /**
-   * Parameterizes the spline. This method breaks up the spline into various arcs until their dx,
+   * Parametrizes the spline. This method breaks up the spline into various arcs until their dx,
    * dy, and dtheta are within specific tolerances.
    *
    * @param spline The spline to parameterize.

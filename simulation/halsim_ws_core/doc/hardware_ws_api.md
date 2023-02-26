@@ -34,11 +34,11 @@ The messages in the protocol are based around typical representations of electro
 
 Binary WebSocket frames are not used.  Text WebSocket frames are JSON messages for human readability and ease of debugging.
 
-Both clients and servers shall support unsecure connections (``ws:``) and may support secure connections (``wss:``).  In a trusted network environment (e.g. a robot network), clients that support secure connections should fall back to an unsecure connection if a secure connection is not available.
+Both clients and servers shall support insecure connections (``ws:``) and may support secure connections (``wss:``).  In a trusted network environment (e.g. a robot network), clients that support secure connections should fall back to an insecure connection if a secure connection is not available.
 
 The resource name for the websockets connection is ``/wpilibws``.  Servers shall reject a second connection to the same resource location as a currently active connection, but may support multiple connections via additional resource names; the resource name is used to prevent duplicate client connections (such as when a web browser is used).  Servers may support multiplexed HTTP file serving on the same port.
 
-The unsecure standard server port number shall be 3300.
+The insecure standard server port number shall be 3300.
 
 ### Text Data Frames
 

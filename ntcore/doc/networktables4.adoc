@@ -296,13 +296,13 @@ The MessagePack contents shall be an array of maps.  Each map in the array shall
 [[websockets-config]]
 == WebSockets Protocol Configuration
 
-Both clients and servers shall support unsecure connections (`ws:`) and may support secure connections (`wss:`).  In a trusted network environment (e.g. a robot network), clients that support secure connections should fall back to an unsecure connection if a secure connection is not available.
+Both clients and servers shall support insecure connections (`ws:`) and may support secure connections (`wss:`).  In a trusted network environment (e.g. a robot network), clients that support secure connections should fall back to an insecure connection if a secure connection is not available.
 
 Servers shall support a resource name of `/nt/<name>`, where `<name>` is an arbitrary string representing the client name.  The client name does not need to be unique; multiple connections to the same name are allowed; the server shall ensure the name is unique (for the purposes of meta-topics) by appending a '@' and a unique number (if necessary).  To support this, the name provided by the client should not contain an embedded '@'.  Clients should provide a way to specify the resource name (in particular, the client name portion).
 
 Both clients and servers shall support/use subprotocol `networktables.first.wpi.edu` for this protocol. Clients and servers shall terminate the connection in accordance with the WebSocket protocol unless both sides support this subprotocol.
 
-The unsecure standard server port number shall be 5810, the secure standard port number shall be 5811.
+The insecure standard server port number shall be 5810, the secure standard port number shall be 5811.
 
 [[data-types]]
 == Supported Data Types

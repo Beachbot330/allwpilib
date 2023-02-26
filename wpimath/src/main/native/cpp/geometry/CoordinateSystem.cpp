@@ -34,7 +34,7 @@ const CoordinateSystem& CoordinateSystem::NWU() {
   return instance;
 }
 
-const CoordinateSystem& CoordinateSystem::EDN() {
+const CoordinateSystem& CoordinateSystem::END() {
   static const CoordinateSystem instance{
       CoordinateAxis::E(), CoordinateAxis::D(), CoordinateAxis::N()};
   return instance;

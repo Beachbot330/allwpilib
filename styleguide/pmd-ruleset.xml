@@ -59,7 +59,7 @@
     <exclude name="TooManyMethods" />
   </rule>
 
-  <rule ref="category/java/errorprone.xml">
+  <rule ref="category/java/error-prone.xml">
     <exclude name="AssignmentToNonFinalStatic" />
     <exclude name="AvoidCatchingThrowable" />
     <exclude name="AvoidDuplicateLiterals" />

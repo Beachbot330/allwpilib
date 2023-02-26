@@ -55,7 +55,7 @@ class CoordinateSystemTest {
 
   @Test
   void testPose3dEDNtoNWU() {
-    // No rotation from EDN to NWU
+    // No rotation from END to NWU
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d()),
         new Pose3d(
@@ -63,10 +63,10 @@ class CoordinateSystemTest {
             -1.0,
             -2.0,
             new Rotation3d(Units.degreesToRadians(-90.0), 0.0, Units.degreesToRadians(-90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
 
-    // 45° roll from EDN to NWU
+    // 45° roll from END to NWU
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d(Units.degreesToRadians(45.0), 0.0, 0.0)),
         new Pose3d(
@@ -74,10 +74,10 @@ class CoordinateSystemTest {
             -1.0,
             -2.0,
             new Rotation3d(Units.degreesToRadians(-45.0), 0.0, Units.degreesToRadians(-90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
 
-    // 45° pitch from EDN to NWU
+    // 45° pitch from END to NWU
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d(0.0, Units.degreesToRadians(45.0), 0.0)),
         new Pose3d(
@@ -85,10 +85,10 @@ class CoordinateSystemTest {
             -1.0,
             -2.0,
             new Rotation3d(Units.degreesToRadians(-90.0), 0.0, Units.degreesToRadians(-135.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
 
-    // 45° yaw from EDN to NWU
+    // 45° yaw from END to NWU
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d(0.0, 0.0, Units.degreesToRadians(45.0))),
         new Pose3d(
@@ -99,13 +99,13 @@ class CoordinateSystemTest {
                 Units.degreesToRadians(-90.0),
                 Units.degreesToRadians(45.0),
                 Units.degreesToRadians(-90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
   }
 
   @Test
   void testPose3dEDNtoNED() {
-    // No rotation from EDN to NED
+    // No rotation from END to NED
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d()),
         new Pose3d(
@@ -113,10 +113,10 @@ class CoordinateSystemTest {
             1.0,
             2.0,
             new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
 
-    // 45° roll from EDN to NED
+    // 45° roll from END to NED
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d(Units.degreesToRadians(45.0), 0.0, 0.0)),
         new Pose3d(
@@ -124,10 +124,10 @@ class CoordinateSystemTest {
             1.0,
             2.0,
             new Rotation3d(Units.degreesToRadians(135.0), 0.0, Units.degreesToRadians(90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
 
-    // 45° pitch from EDN to NED
+    // 45° pitch from END to NED
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d(0.0, Units.degreesToRadians(45.0), 0.0)),
         new Pose3d(
@@ -135,10 +135,10 @@ class CoordinateSystemTest {
             1.0,
             2.0,
             new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(135.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
 
-    // 45° yaw from EDN to NED
+    // 45° yaw from END to NED
     checkPose3dConvert(
         new Pose3d(1.0, 2.0, 3.0, new Rotation3d(0.0, 0.0, Units.degreesToRadians(45.0))),
         new Pose3d(
@@ -149,22 +149,22 @@ class CoordinateSystemTest {
                 Units.degreesToRadians(90.0),
                 Units.degreesToRadians(-45.0),
                 Units.degreesToRadians(90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
   }
 
   @Test
   void testTransform3dEDNtoNWU() {
-    // No rotation from EDN to NWU
+    // No rotation from END to NWU
     checkTransform3dConvert(
         new Transform3d(new Translation3d(1.0, 2.0, 3.0), new Rotation3d()),
         new Transform3d(
             new Translation3d(3.0, -1.0, -2.0),
             new Rotation3d(Units.degreesToRadians(-90.0), 0.0, Units.degreesToRadians(-90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
 
-    // 45° roll from EDN to NWU
+    // 45° roll from END to NWU
     checkTransform3dConvert(
         new Transform3d(
             new Translation3d(1.0, 2.0, 3.0),
@@ -172,10 +172,10 @@ class CoordinateSystemTest {
         new Transform3d(
             new Translation3d(3.0, -1.0, -2.0),
             new Rotation3d(Units.degreesToRadians(-45.0), 0.0, Units.degreesToRadians(-90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
 
-    // 45° pitch from EDN to NWU
+    // 45° pitch from END to NWU
     checkTransform3dConvert(
         new Transform3d(
             new Translation3d(1.0, 2.0, 3.0),
@@ -183,10 +183,10 @@ class CoordinateSystemTest {
         new Transform3d(
             new Translation3d(3.0, -1.0, -2.0),
             new Rotation3d(Units.degreesToRadians(-90.0), 0.0, Units.degreesToRadians(-135.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
 
-    // 45° yaw from EDN to NWU
+    // 45° yaw from END to NWU
     checkTransform3dConvert(
         new Transform3d(
             new Translation3d(1.0, 2.0, 3.0),
@@ -197,22 +197,22 @@ class CoordinateSystemTest {
                 Units.degreesToRadians(-90.0),
                 Units.degreesToRadians(45.0),
                 Units.degreesToRadians(-90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NWU());
   }
 
   @Test
   void testTransform3dEDNtoNED() {
-    // No rotation from EDN to NED
+    // No rotation from END to NED
     checkTransform3dConvert(
         new Transform3d(new Translation3d(1.0, 2.0, 3.0), new Rotation3d()),
         new Transform3d(
             new Translation3d(3.0, 1.0, 2.0),
             new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
 
-    // 45° roll from EDN to NED
+    // 45° roll from END to NED
     checkTransform3dConvert(
         new Transform3d(
             new Translation3d(1.0, 2.0, 3.0),
@@ -220,10 +220,10 @@ class CoordinateSystemTest {
         new Transform3d(
             new Translation3d(3.0, 1.0, 2.0),
             new Rotation3d(Units.degreesToRadians(135.0), 0.0, Units.degreesToRadians(90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
 
-    // 45° pitch from EDN to NED
+    // 45° pitch from END to NED
     checkTransform3dConvert(
         new Transform3d(
             new Translation3d(1.0, 2.0, 3.0),
@@ -231,10 +231,10 @@ class CoordinateSystemTest {
         new Transform3d(
             new Translation3d(3.0, 1.0, 2.0),
             new Rotation3d(Units.degreesToRadians(90.0), 0.0, Units.degreesToRadians(135.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
 
-    // 45° yaw from EDN to NED
+    // 45° yaw from END to NED
     checkTransform3dConvert(
         new Transform3d(
             new Translation3d(1.0, 2.0, 3.0),
@@ -245,7 +245,7 @@ class CoordinateSystemTest {
                 Units.degreesToRadians(90.0),
                 Units.degreesToRadians(-45.0),
                 Units.degreesToRadians(90.0))),
-        CoordinateSystem.EDN(),
+        CoordinateSystem.END(),
         CoordinateSystem.NED());
   }
 }
