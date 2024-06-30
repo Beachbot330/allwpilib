@@ -158,7 +158,7 @@ jobs:
     - name: Move artifacts
       run: mkdir -p ~/releases/maven/development && cp -r edu ~/releases/maven/development
     - name: Patch rdev
-      run: sed --regexp-extended -i 's/(wpilib_bin_url =).*/\1 \"file:\/\/~\/releases\/maven\/development\/"/' rdev.toml && cat rdev.toml
+      run: sed --regexp-extended -i 's/(wpilib_bin_url =).*/\1 \"file:\/\/~\/releases\/maven\/development\/"/' **.toml && cat rdev.toml && git status
     - uses: actions/setup-python@v5
       with:
         python-version: 3.12
