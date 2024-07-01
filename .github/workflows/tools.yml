@@ -193,7 +193,7 @@ jobs:
       run: |
         python -m pip --disable-pip-version-check install 'numpy<2'
     - name: Patch rdev
-      run: git config user.name github-actions && git config user.email github-actions@github.com && set -- ~/releases/maven/development/edu/wpi/first/wpiutil/wpiutil-cpp/*/ ; wpilibversion=$(basename $1) && echo $wpilibversion && sed --regexp-extended -i 's/(wpilib_bin_url =).*/\1 \"file:\/\/'"$HOME"'\/releases\/maven\/development"/' rdev.toml && sed --regexp-extended -i 's/(wpilib_bin_version =).*/\1 \"'"$wpilibversion"'\"/' rdev.toml && cat rdev.toml && ./rdev.sh update-pyproject --commit && git status && cat subprojects/robotpy-wpilib/pyproject.toml
+      run: git config user.name github-actions && git config user.email github-actions@github.com && set -- ~/releases/maven/development/edu/wpi/first/wpiutil/wpiutil-cpp/*/ ; wpilibversion=$(basename $1) && echo $wpilibversion && sed --regexp-extended -i 's@(wpilib_bin_url =).*@\1 \"file:\/\/'"$HOME"'\/releases\/maven\/development"@' rdev.toml && sed --regexp-extended -i 's/(wpilib_bin_version =).*/\1 \"'"$wpilibversion"'\"/' rdev.toml && cat rdev.toml && ./rdev.sh update-pyproject --commit && git status && cat subprojects/robotpy-wpilib/pyproject.toml
     - name: Build + test wheels
       shell: bash
       run: |
