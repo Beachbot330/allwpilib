@@ -193,7 +193,7 @@ jobs:
       run: |
         python -m pip --disable-pip-version-check install 'numpy<2'
     - name: Patch rdev
-      run: shopt -s globstar && sed --regexp-extended -i 's/(wpilib_bin_url =).*/\1 \"file:\/\/~\/releases\/maven\/development\/"/' **/*.toml && cat rdev.toml && ./rdev.sh update-pyproject && git status
+      run: shopt -s globstar && sed --regexp-extended -i 's/(wpilib_bin_url =).*/\1 \"file:\/\/~\/releases\/maven\/development\/"/' **/*.toml && cat rdev.toml && ./rdev.sh update-pyproject --commit && git status
     - name: Build + test wheels
       shell: bash
       run: |
