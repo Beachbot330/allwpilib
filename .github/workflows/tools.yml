@@ -161,8 +161,7 @@ jobs:
         name: MavenArtifacts
     - name: Move artifacts
       run: mkdir -p ~/releases/maven/development && cp -r edu ~/releases/maven/development
-    - name: Patch rdev
-      run: shopt -s globstar && sed --regexp-extended -i 's/(wpilib_bin_url =).*/\1 \"file:\/\/~\/releases\/maven\/development\/"/' **/*.toml && cat rdev.toml && ./rdev.sh update-pyproject && git status
+
     - uses: actions/setup-python@v5
       with:
         python-version: 3.12
@@ -193,7 +192,8 @@ jobs:
       shell: bash
       run: |
         python -m pip --disable-pip-version-check install 'numpy<2'
-
+    - name: Patch rdev
+      run: shopt -s globstar && sed --regexp-extended -i 's/(wpilib_bin_url =).*/\1 \"file:\/\/~\/releases\/maven\/development\/"/' **/*.toml && cat rdev.toml && ./rdev.sh update-pyproject && git status
     - name: Build + test wheels
       shell: bash
       run: |
