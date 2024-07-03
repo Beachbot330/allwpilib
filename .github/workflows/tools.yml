@@ -154,8 +154,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        repository: robotpy/mostrobotpy
+        repository: sciencewhiz/mostrobotpy
         fetch-depth: 0
+        ref: ntcoreEntryDelete
     - uses: actions/download-artifact@v4
       with:
         name: MavenArtifacts
