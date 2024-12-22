@@ -18,7 +18,7 @@ import edu.wpi.first.hal.PWMJNI;
  * connected in series and controlled from the single driver.
  */
 public class AddressableLED implements AutoCloseable {
-  private final int m_pwmHandle;
+    private final int m_pwmHandle;
   private final int m_handle;
 
   /**
