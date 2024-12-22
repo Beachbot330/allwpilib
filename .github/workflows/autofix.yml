@@ -82,4 +82,4 @@ jobs:
         run: git status && git log -n 3 && git branch --show-current
       - name: delete protobuf dependencies
         run: rm protoc-gen-quickbuf-1.3.3-linux-x86_64.exe*
-      - uses: sciencewhiz/action@2c23032f99cb6f624389bc4a6aa520f99892ae16
+      - uses: sciencewhiz/action@b2597c063527903ca24a034f03ba7a7db29769f5
