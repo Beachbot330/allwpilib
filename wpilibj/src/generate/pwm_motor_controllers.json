@@ -6,7 +6,7 @@
     "ResourceName": "DigilentDMC60",
     "pulse_width_ms": {
       "max": 2.004,
-      "deadbandMax": 1.520,
+      "deadbandMax": 1.521,
       "center": 1.500,
       "deadbandMin": 1.480,
       "min": 0.997
