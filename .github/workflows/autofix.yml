@@ -58,11 +58,13 @@ jobs:
 #              content: "rocket",
 #            });
       - uses: actions/checkout@v4
-      - name: Checkout PR
-        run: |
-          gh pr checkout "$NUMBER"
-        env:
-          NUMBER: ${{ github.event.issue.number }}
+        with:
+          fetch-depth: 0
+#      - name: Checkout PR
+#        run: |
+#          gh pr checkout "$NUMBER"
+#        env:
+#          NUMBER: ${{ github.event.issue.number }}
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
