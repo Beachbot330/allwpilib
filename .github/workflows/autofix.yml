@@ -46,19 +46,19 @@ jobs:
     if: github.event.issue.pull_request && startsWith(github.event.comment.body, '/pregen')
     runs-on: ubuntu-22.04
     steps:
-      - name: React Rocket
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const {owner, repo} = context.issue
-            github.rest.reactions.createForIssueComment({
-              owner,
-              repo,
-              comment_id: context.payload.comment.id,
-              content: "rocket",
-            });
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: React Rocket
+#        uses: actions/github-script@v7
+#        with:
+#          script: |
+#            const {owner, repo} = context.issue
+#            github.rest.reactions.createForIssueComment({
+#              owner,
+#              repo,
+#              comment_id: context.payload.comment.id,
+#              content: "rocket",
+#            });
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
