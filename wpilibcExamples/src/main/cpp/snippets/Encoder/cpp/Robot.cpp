@@ -29,6 +29,8 @@ class Robot : public frc::TimedRobot {
     // Configures an encoder to average its period measurement over 5 samples
     // Can be between 1 and 127 samples
     m_encoder.SetSamplesToAverage(5);
+
+    compile error
   }
 
   void TeleopPeriodic() override {
