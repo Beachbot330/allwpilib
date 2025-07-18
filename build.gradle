@@ -112,7 +112,7 @@ subprojects {
     plugins.withType(JavaPlugin) {
         java {
             sourceCompatibility = 21
-            targetCompatibility = 21
+            targetCompatibility = 17
         }
     }
 
