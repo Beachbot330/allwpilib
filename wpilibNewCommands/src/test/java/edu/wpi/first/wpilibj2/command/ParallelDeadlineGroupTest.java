@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 class ParallelDeadlineGroupTest extends MultiCompositionTestBase<ParallelDeadlineGroup> {
   @Test
   void parallelDeadlineScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -58,7 +58,7 @@ class ParallelDeadlineGroupTest extends MultiCompositionTestBase<ParallelDeadlin
 
   @Test
   void parallelDeadlineInterruptTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -92,7 +92,7 @@ class ParallelDeadlineGroupTest extends MultiCompositionTestBase<ParallelDeadlin
     Subsystem system3 = new SubsystemBase() {};
     Subsystem system4 = new SubsystemBase() {};
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true, system1, system2);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true, system3);

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class PrintCommandTest extends CommandTestBase {
   @Test
   void printCommandScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       final PrintStream originalOut = System.out;
       ByteArrayOutputStream testOut = new ByteArrayOutputStream();
       System.setOut(new PrintStream(testOut));

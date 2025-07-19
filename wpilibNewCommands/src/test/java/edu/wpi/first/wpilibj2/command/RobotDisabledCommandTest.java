@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class RobotDisabledCommandTest extends CommandTestBase {
   @Test
   void robotDisabledCommandCancelTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder holder = new MockCommandHolder(false);
       Command mockCommand = holder.getMock();
 
@@ -34,7 +34,7 @@ class RobotDisabledCommandTest extends CommandTestBase {
 
   @Test
   void runWhenDisabledTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder holder = new MockCommandHolder(true);
       Command mockCommand = holder.getMock();
 
@@ -52,7 +52,7 @@ class RobotDisabledCommandTest extends CommandTestBase {
 
   @Test
   void sequentialGroupRunWhenDisabledTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -79,7 +79,7 @@ class RobotDisabledCommandTest extends CommandTestBase {
 
   @Test
   void parallelGroupRunWhenDisabledTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -117,7 +117,7 @@ class RobotDisabledCommandTest extends CommandTestBase {
     MockCommandHolder command4Holder = new MockCommandHolder(false);
     Command command4 = command4Holder.getMock();
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Command runWhenDisabled = new ConditionalCommand(command1, command2, () -> true);
       Command dontRunWhenDisabled = new ConditionalCommand(command3, command4, () -> true);
 
@@ -144,7 +144,7 @@ class RobotDisabledCommandTest extends CommandTestBase {
     Command runWhenDisabled = new SelectCommand<>(Map.of(1, command1, 2, command2), () -> 1);
     Command dontRunWhenDisabled = new SelectCommand<>(Map.of(1, command3, 2, command4), () -> 1);
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       scheduler.schedule(runWhenDisabled, dontRunWhenDisabled);
 
       assertTrue(scheduler.isScheduled(runWhenDisabled));
@@ -165,7 +165,7 @@ class RobotDisabledCommandTest extends CommandTestBase {
     MockCommandHolder command4Holder = new MockCommandHolder(false);
     Command command4 = command4Holder.getMock();
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Command runWhenDisabled = new ConditionalCommand(command1, command2, () -> true);
       Command dontRunWhenDisabled = new ConditionalCommand(command3, command4, () -> true);
 

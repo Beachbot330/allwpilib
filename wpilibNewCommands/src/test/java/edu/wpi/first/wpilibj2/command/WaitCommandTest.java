@@ -34,7 +34,7 @@ class WaitCommandTest extends CommandTestBase {
   @Test
   @ResourceLock("timing")
   void waitCommandTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       WaitCommand waitCommand = new WaitCommand(2);
 
       scheduler.schedule(waitCommand);
@@ -55,7 +55,7 @@ class WaitCommandTest extends CommandTestBase {
   @Test
   @ResourceLock("timing")
   void withTimeoutTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       when(command1.withTimeout(anyDouble())).thenCallRealMethod();

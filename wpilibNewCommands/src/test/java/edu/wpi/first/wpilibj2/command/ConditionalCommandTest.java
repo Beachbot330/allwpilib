@@ -21,7 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 class ConditionalCommandTest extends CommandTestBase {
   @Test
   void conditionalCommandTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       command1Holder.setFinished(true);
@@ -50,7 +50,7 @@ class ConditionalCommandTest extends CommandTestBase {
     Subsystem system2 = new SubsystemBase() {};
     Subsystem system3 = new SubsystemBase() {};
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true, system1, system2);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true, system3);

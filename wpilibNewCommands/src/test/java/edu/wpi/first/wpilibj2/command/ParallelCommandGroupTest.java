@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class ParallelCommandGroupTest extends MultiCompositionTestBase<ParallelCommandGroup> {
   @Test
   void parallelGroupScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -46,7 +46,7 @@ class ParallelCommandGroupTest extends MultiCompositionTestBase<ParallelCommandG
 
   @Test
   void parallelGroupInterruptTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -75,7 +75,7 @@ class ParallelCommandGroupTest extends MultiCompositionTestBase<ParallelCommandG
 
   @Test
   void notScheduledCancelTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -94,7 +94,7 @@ class ParallelCommandGroupTest extends MultiCompositionTestBase<ParallelCommandG
     Subsystem system3 = new SubsystemBase() {};
     Subsystem system4 = new SubsystemBase() {};
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true, system1, system2);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true, system3);

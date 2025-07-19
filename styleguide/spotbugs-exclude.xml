@@ -164,4 +164,8 @@
     <Bug pattern="UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD" />
     <Class name="edu.wpi.first.epilogue.EpilogueConfiguration" />
   </Match>
+  <Match>
+    <Bug pattern="SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR" />
+    <Class name="edu.wpi.first.wpilibj.test.TestSuite" />
+  </Match>
 </FindBugsFilter>

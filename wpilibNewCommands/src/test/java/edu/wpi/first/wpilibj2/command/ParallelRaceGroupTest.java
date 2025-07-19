@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 class ParallelRaceGroupTest extends MultiCompositionTestBase<ParallelRaceGroup> {
   @Test
   void parallelRaceScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -49,7 +49,7 @@ class ParallelRaceGroupTest extends MultiCompositionTestBase<ParallelRaceGroup> 
 
   @Test
   void parallelRaceInterruptTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -77,7 +77,7 @@ class ParallelRaceGroupTest extends MultiCompositionTestBase<ParallelRaceGroup> 
 
   @Test
   void notScheduledCancelTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -96,7 +96,7 @@ class ParallelRaceGroupTest extends MultiCompositionTestBase<ParallelRaceGroup> 
     Subsystem system3 = new SubsystemBase() {};
     Subsystem system4 = new SubsystemBase() {};
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true, system1, system2);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true, system3);
@@ -145,7 +145,7 @@ class ParallelRaceGroupTest extends MultiCompositionTestBase<ParallelRaceGroup> 
     assertNotNull(command3);
     Command group2 = new ParallelRaceGroup(group1, command3);
 
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       scheduler.schedule(group2);
       scheduler.run();
       command1Holder.setFinished(true);
@@ -159,7 +159,7 @@ class ParallelRaceGroupTest extends MultiCompositionTestBase<ParallelRaceGroup> 
 
   @Test
   void parallelRaceScheduleTwiceTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);

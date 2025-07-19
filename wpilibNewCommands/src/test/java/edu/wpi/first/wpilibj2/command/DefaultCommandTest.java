@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class DefaultCommandTest extends CommandTestBase {
   @Test
   void defaultCommandScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Subsystem hasDefaultCommand = new SubsystemBase() {};
 
       MockCommandHolder defaultHolder = new MockCommandHolder(true, hasDefaultCommand);
@@ -28,7 +28,7 @@ class DefaultCommandTest extends CommandTestBase {
 
   @Test
   void defaultCommandInterruptResumeTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Subsystem hasDefaultCommand = new SubsystemBase() {};
 
       MockCommandHolder defaultHolder = new MockCommandHolder(true, hasDefaultCommand);
@@ -53,7 +53,7 @@ class DefaultCommandTest extends CommandTestBase {
 
   @Test
   void defaultCommandDisableResumeTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Subsystem hasDefaultCommand = new SubsystemBase() {};
 
       MockCommandHolder defaultHolder = new MockCommandHolder(false, hasDefaultCommand);

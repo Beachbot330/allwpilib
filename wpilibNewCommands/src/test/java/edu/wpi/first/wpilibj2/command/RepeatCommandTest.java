@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class RepeatCommandTest extends SingleCompositionTestBase<RepeatCommand> {
   @Test
   void callsMethodsCorrectly() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       var initCounter = new AtomicInteger(0);
       var exeCounter = new AtomicInteger(0);
       var isFinishedCounter = new AtomicInteger(0);

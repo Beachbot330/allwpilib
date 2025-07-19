@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class InstantCommandTest extends CommandTestBase {
   @Test
   void instantCommandScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean cond = new AtomicBoolean();
 
       InstantCommand command = new InstantCommand(() -> cond.set(true));

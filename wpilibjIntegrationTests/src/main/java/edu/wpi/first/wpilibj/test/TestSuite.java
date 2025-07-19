@@ -67,7 +67,7 @@ public class TestSuite extends AbstractTestSuite {
   private static TestSuite instance = null;
 
   /** Get the singleton instance of the test suite. */
-  public static TestSuite getInstance() {
+  public static synchronized TestSuite getInstance() {
     if (instance == null) {
       instance = new TestSuite();
     }

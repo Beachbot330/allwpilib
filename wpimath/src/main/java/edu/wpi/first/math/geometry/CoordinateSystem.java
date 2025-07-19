@@ -8,7 +8,7 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 
 /** A helper class that converts Pose3d objects between different standard coordinate frames. */
-public class CoordinateSystem {
+public final class CoordinateSystem {
   private static final CoordinateSystem m_nwu =
       new CoordinateSystem(CoordinateAxis.N(), CoordinateAxis.W(), CoordinateAxis.U());
   private static final CoordinateSystem m_edn =
@@ -27,7 +27,7 @@ public class CoordinateSystem {
    * @param positiveZ The cardinal direction of the positive z-axis.
    * @throws IllegalArgumentException if the coordinate system isn't special orthogonal
    */
-  public CoordinateSystem(
+  private CoordinateSystem(
       CoordinateAxis positiveX, CoordinateAxis positiveY, CoordinateAxis positiveZ) {
     // Construct a change of basis matrix from the source coordinate system to the
     // NWU coordinate system. Each column vector in the change of basis matrix is

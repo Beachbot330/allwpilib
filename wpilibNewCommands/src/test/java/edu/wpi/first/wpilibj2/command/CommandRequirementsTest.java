@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class CommandRequirementsTest extends CommandTestBase {
   @Test
   void requirementInterruptTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Subsystem requirement = new SubsystemBase() {};
 
       MockCommandHolder interruptedHolder = new MockCommandHolder(true, requirement);
@@ -41,7 +41,7 @@ class CommandRequirementsTest extends CommandTestBase {
 
   @Test
   void requirementUninterruptibleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Subsystem requirement = new SubsystemBase() {};
 
       Command notInterrupted =
@@ -60,7 +60,7 @@ class CommandRequirementsTest extends CommandTestBase {
 
   @Test
   void defaultCommandRequirementErrorTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Subsystem system = new SubsystemBase() {};
 
       Command missingRequirement = Commands.idle();

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class ScheduleCommandTest extends CommandTestBase {
   @Test
   void scheduleCommandScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);

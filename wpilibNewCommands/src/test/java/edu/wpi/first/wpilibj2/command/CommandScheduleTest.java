@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 class CommandScheduleTest extends CommandTestBase {
   @Test
   void instantScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder holder = new MockCommandHolder(true);
       holder.setFinished(true);
       Command mockCommand = holder.getMock();
@@ -38,7 +38,7 @@ class CommandScheduleTest extends CommandTestBase {
 
   @Test
   void singleIterationScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder holder = new MockCommandHolder(true);
       Command mockCommand = holder.getMock();
 
@@ -60,7 +60,7 @@ class CommandScheduleTest extends CommandTestBase {
 
   @Test
   void multiScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder command1Holder = new MockCommandHolder(true);
       Command command1 = command1Holder.getMock();
       MockCommandHolder command2Holder = new MockCommandHolder(true);
@@ -91,7 +91,7 @@ class CommandScheduleTest extends CommandTestBase {
 
   @Test
   void schedulerCancelTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder holder = new MockCommandHolder(true);
       Command mockCommand = holder.getMock();
 
@@ -111,7 +111,7 @@ class CommandScheduleTest extends CommandTestBase {
 
   @Test
   void notScheduledCancelTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       MockCommandHolder holder = new MockCommandHolder(true);
       Command mockCommand = holder.getMock();
 
@@ -121,7 +121,7 @@ class CommandScheduleTest extends CommandTestBase {
 
   @Test
   void smartDashboardCancelTest() {
-    try (CommandScheduler scheduler = new CommandScheduler();
+    try (CommandScheduler scheduler = CommandScheduler.getInstance();
         var inst = NetworkTableInstance.create()) {
       SmartDashboard.setNetworkTableInstance(inst);
       SmartDashboard.putData("Scheduler", scheduler);

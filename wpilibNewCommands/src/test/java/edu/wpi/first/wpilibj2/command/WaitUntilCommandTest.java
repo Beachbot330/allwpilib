@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class WaitUntilCommandTest extends CommandTestBase {
   @Test
   void waitUntilTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean condition = new AtomicBoolean();
 
       Command command = new WaitUntilCommand(condition::get);

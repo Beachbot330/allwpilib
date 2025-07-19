@@ -22,7 +22,7 @@ class CommandDecoratorTest extends CommandTestBase {
   void withTimeoutTest() {
     HAL.initialize(500, 0);
     SimHooks.pauseTiming();
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Command timeout = Commands.idle().withTimeout(0.1);
 
       scheduler.schedule(timeout);
@@ -41,7 +41,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void untilTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean finish = new AtomicBoolean();
 
       Command command = Commands.idle().until(finish::get);
@@ -60,7 +60,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void untilOrderTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean firstHasRun = new AtomicBoolean(false);
       AtomicBoolean firstWasPolled = new AtomicBoolean(false);
 
@@ -90,7 +90,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void onlyWhileTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean run = new AtomicBoolean(true);
 
       Command command = Commands.idle().onlyWhile(run::get);
@@ -109,7 +109,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void onlyWhileOrderTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean firstHasRun = new AtomicBoolean(false);
       AtomicBoolean firstWasPolled = new AtomicBoolean(false);
 
@@ -139,7 +139,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void ignoringDisableTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       var command = Commands.idle().ignoringDisable(true);
 
       setDSEnabled(false);
@@ -153,7 +153,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void beforeStartingTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean finished = new AtomicBoolean();
       finished.set(false);
 
@@ -175,7 +175,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void andThenLambdaTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean finished = new AtomicBoolean(false);
 
       Command command = Commands.none().andThen(() -> finished.set(true));
@@ -196,7 +196,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void andThenTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean condition = new AtomicBoolean(false);
 
       Command command1 = Commands.none();
@@ -219,7 +219,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void deadlineForTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean finish = new AtomicBoolean(false);
 
       Command dictator = Commands.waitUntil(finish::get);
@@ -242,7 +242,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void deadlineForOrderTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean dictatorHasRun = new AtomicBoolean(false);
       AtomicBoolean dictatorWasPolled = new AtomicBoolean(false);
 
@@ -273,7 +273,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void withDeadlineTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean finish = new AtomicBoolean(false);
 
       Command endsBeforeGroup = Commands.none().withDeadline(Commands.waitUntil(finish::get));
@@ -297,7 +297,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void withDeadlineOrderTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean dictatorHasRun = new AtomicBoolean(false);
       AtomicBoolean dictatorWasPolled = new AtomicBoolean(false);
       Command dictator =
@@ -324,7 +324,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void alongWithTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean finish = new AtomicBoolean(false);
 
       Command command1 = Commands.waitUntil(finish::get);
@@ -346,7 +346,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void alongWithOrderTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean firstHasRun = new AtomicBoolean(false);
       AtomicBoolean firstWasPolled = new AtomicBoolean(false);
 
@@ -376,7 +376,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void raceWithTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       Command command1 = Commands.idle();
       Command command2 = Commands.none();
 
@@ -391,7 +391,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void raceWithOrderTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean firstHasRun = new AtomicBoolean(false);
       AtomicBoolean firstWasPolled = new AtomicBoolean(false);
 
@@ -422,7 +422,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void unlessTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean hasRun = new AtomicBoolean(false);
       AtomicBoolean unlessCondition = new AtomicBoolean(true);
 
@@ -441,7 +441,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void onlyIfTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean hasRun = new AtomicBoolean(false);
       AtomicBoolean onlyIfCondition = new AtomicBoolean(false);
 
@@ -460,7 +460,7 @@ class CommandDecoratorTest extends CommandTestBase {
 
   @Test
   void finallyDoTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger first = new AtomicInteger(0);
       AtomicInteger second = new AtomicInteger(0);
 
@@ -496,7 +496,7 @@ class CommandDecoratorTest extends CommandTestBase {
   // handleInterruptTest() implicitly tests the interrupt=true branch of finallyDo()
   @Test
   void handleInterruptTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger first = new AtomicInteger(0);
       AtomicInteger second = new AtomicInteger(0);
 

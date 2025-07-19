@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 class SchedulerTest extends CommandTestBase {
   @Test
   void schedulerLambdaTestNoInterrupt() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger();
 
       scheduler.onCommandInitialize(command -> counter.incrementAndGet());
@@ -32,7 +32,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void schedulerInterruptLambdaTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger();
 
       scheduler.onCommandInterrupt(command -> counter.incrementAndGet());
@@ -48,7 +48,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void schedulerInterruptNoCauseLambdaTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger();
 
       scheduler.onCommandInterrupt(
@@ -68,7 +68,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void schedulerInterruptCauseLambdaTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger();
 
       Subsystem subsystem = new Subsystem() {};
@@ -91,7 +91,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void schedulerInterruptCauseLambdaInRunLoopTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger();
 
       Subsystem subsystem = new Subsystem() {};
@@ -118,7 +118,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void registerSubsystemTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger(0);
       Subsystem system =
           new SubsystemBase() {
@@ -137,7 +137,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void unregisterSubsystemTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger(0);
       Subsystem system =
           new SubsystemBase() {
@@ -156,7 +156,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void schedulerCancelAllTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger();
 
       scheduler.onCommandInterrupt(command -> counter.incrementAndGet());
@@ -175,7 +175,7 @@ class SchedulerTest extends CommandTestBase {
 
   @Test
   void scheduleScheduledNoOp() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicInteger counter = new AtomicInteger();
 
       Command command = Commands.startEnd(counter::incrementAndGet, () -> {});

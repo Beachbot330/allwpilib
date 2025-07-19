@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class FunctionalCommandTest extends CommandTestBase {
   @Test
   void functionalCommandScheduleTest() {
-    try (CommandScheduler scheduler = new CommandScheduler()) {
+    try (CommandScheduler scheduler = CommandScheduler.getInstance()) {
       AtomicBoolean cond1 = new AtomicBoolean();
       AtomicBoolean cond2 = new AtomicBoolean();
       AtomicBoolean cond3 = new AtomicBoolean();
