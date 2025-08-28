@@ -7,15 +7,13 @@ package org.wpilib.examples.hatchbotinlined.subsystems;
 import static org.wpilib.hardware.pneumatic.DoubleSolenoid.Value.kForward;
 import static org.wpilib.hardware.pneumatic.DoubleSolenoid.Value.kReverse;
 
-import org.wpilib.command2.Command;
-import org.wpilib.command2.SubsystemBase;
 import org.wpilib.examples.hatchbotinlined.Constants.HatchConstants;
 import org.wpilib.hardware.pneumatic.DoubleSolenoid;
 import org.wpilib.hardware.pneumatic.PneumaticsModuleType;
-import org.wpilib.util.sendable.SendableBuilder;
-
+import org.wpilib.util.sendable.SendableBuilder;import org.wpilib.commands3.Command;
+import org.wpilib.commands3.Mechanism;
 /** A hatch mechanism actuated by a single {@link org.wpilib.hardware.pneumatic.DoubleSolenoid}. */
-public class HatchSubsystem extends SubsystemBase {
+public class HatchSubsystem extends Mechanism {
   private final DoubleSolenoid m_hatchSolenoid =
       new DoubleSolenoid(
           0,
@@ -26,19 +24,19 @@ public class HatchSubsystem extends SubsystemBase {
   /** Grabs the hatch. */
   public Command grabHatchCommand() {
     // implicitly require `this`
-    return this.runOnce(() -> m_hatchSolenoid.set(kForward));
+    return this.run(coro -> m_hatchSolenoid.set(kForward)).named("Grab Hatch");
   }
 
   /** Releases the hatch. */
   public Command releaseHatchCommand() {
     // implicitly require `this`
-    return this.runOnce(() -> m_hatchSolenoid.set(kReverse));
+    return this.run(coro -> m_hatchSolenoid.set(kReverse)).named("Release Hatch");
   }
 
-  @Override
-  public void initSendable(SendableBuilder builder) {
-    super.initSendable(builder);
-    // Publish the solenoid state to telemetry.
-    builder.addBooleanProperty("extended", () -> m_hatchSolenoid.get() == kForward, null);
-  }
+  //  @Override
+  //  public void initSendable(SendableBuilder builder) {
+  //    super.initSendable(builder);
+  //    // Publish the solenoid state to telemetry.
+  //    builder.addBooleanProperty("extended", () -> m_hatchSolenoid.get() == kForward, null);
+  //  }
 }
